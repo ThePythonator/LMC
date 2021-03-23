@@ -40,8 +40,8 @@ jobs:
       
     - uses: actions/upload-artifact@v2
       with:
-        path: build/*.tar.gz
-        name: artifact.tar.gz
+        path: build/*.zip
+        name: artifact.zip
 
     - name: Test
       working-directory: ${{github.workspace}}/build
