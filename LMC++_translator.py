@@ -198,18 +198,85 @@ def convert_lmc(code):
             if len(line) != 2 or len(line[1].split(',')) != 2:
                 raise LMCSytaxError(f'Usage is {command} Rn, mem/label')
 
+            sub = line.split(',')
+                
+            try:
+                r_n = int(sub[0][1:])
+
+            except ValueError:
+                raise LMCSytaxError(f'Usage is {command} Rn, mem/label')
+            
+            bin_line += r_n * (2 ** 20)
+            
+            # Set flags
+            if sub[0][0] == 'S':
+                bin_line += 2 ** 31
+
+            try:
+                val = int(sub[1])
+
+            except ValueError:
+                raise LMCSytaxError(f'Usage is {command} Rn, mem/label')
+                
+            bin_line += val
+
         elif command in ['BRZ', 'BRP']:
             if len(line) != 3:
                 raise LMCSytaxError(f'Usage is {command} Rn mem/label')
+                
+            if line[1][0] not in ['R', 'S']:
+                raise LMCSytaxError(f'Usage is {command} Rn mem/label')
+
+            try:
+                r_n = int(line[1][1:])
+
+            except ValueError:
+                raise LMCSytaxError(f'Usage is {command} Rn mem/label')
+            
+            bin_line += r_n * (2 ** 20)
+
+            # Set flags
+            if line[1][0] == 'S':
+                bin_line += 2 ** 31
+
+
+            try:
+                val = int(line[1])
+
+            except ValueError:
+                raise LMCSytaxError(f'Usage is {command} Rn mem/label')
+                
+            bin_line += val
 
         elif command in ['INP', 'OUT', 'NOT']:
             if len(line) != 2:
                 raise LMCSytaxError(f'Usage is {command} Rn')
 
+            if line[1][0] not in ['R', 'S']:
+                raise LMCSytaxError(f'Usage is {command} Rn')
+
+            try:
+                r_n = int(line[1][1:])
+
+            except ValueError:
+                raise LMCSytaxError(f'Usage is {command} Rn')
+            
+            bin_line += r_n * (2 ** 20)
+
+            # Set flags
+            if line[1][0] == 'S':
+                bin_line += 2 ** 31
+
         elif command in ['BRA']:
             if len(line) != 2:
                 raise LMCSytaxError(f'Usage is {command} mem/label')
 
+                
+            try:
+                val = int(line[1])
+
+            except ValueError:
+                raise LMCSytaxError(f'Usage is {command} mem/label')
                 
             bin_line += val
 
@@ -224,6 +291,8 @@ def convert_lmc(code):
                 raise LMCSytaxError(f'Usage is {command} value')
 
             bin_line += val
+
+        bin_code += bin_line.to_bytes(4, 'big')
 
     return bytearray(bin_code)
 
@@ -241,10 +310,11 @@ def run(filename):
     name = ''.join(filename.split('.')[:-1])
     code = load_lmc(name)
     resolved_code = resolve_labels(code)
-    print(resolved_code[:25])
+    # print(resolved_code[:25])
     bin_code = convert_lmc(resolved_code)
-    # bin_name = write_bin(name, bin_code)
-    # print('Successfully created {file}'.format(file=bin_name))
+    # print(bin_code[:40])
+    bin_name = write_bin(name, bin_code)
+    print('Successfully created {file}'.format(file=bin_name))
     
 
 if __name__ == '__main__':
