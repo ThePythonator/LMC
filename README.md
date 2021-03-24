@@ -16,35 +16,53 @@ To get started, take a look in the examples folder.
 
 # Instruction Set
 
-HLT             -   Halt
-
-LDR Rn, mem     -   Load mem into Rn
-STR Rn, mem     -   Store Rn into mem
-
-INP Rn          -   Store input in Rn
-OUT Rn          -   Output Rn
-CPR Rn, Rm      -   Copy Rm into Rn
-CPV Rn, val     -   Copy value into Rn
-
-ADD Rn, Rm      -   Add Rn to Rm and store in Rn
-SUB Rn, Rm      -   Sub Rm from Rn and store in Rn
-LSL Rn, Rm      -   Left shift Rn by value in Rm and store in Rn
-LSR Rn, Rm      -   Right shift Rn by value in Rm and store in Rn
-
-AND Rn, Rm      -   And Rn and Rm and store in Rn
-ORR Rn, Rm      -   Or Rn and Rm and store in Rn
-XOR Rn, Rm      -   Xor Rn and Rm and store in Rn
-NOT Rn          -   Not Rn and store in Rn
-
-BRA mem         -   Branch (jump) to location mem (note, this is the same as CPV S0, label/mem)
-
-BRZ Rn mem      -   Branch to location mem, only if Rn is zero
-BRP Rn mem      -   Branch to location mem, only if Rn is zero or positive
+`HLT`             -   Halt
 
 
-mem can be a label or an actual memory address, although labels are recommended over memory addresses.
+`LDR Rn, mem`     -   Load mem into Rn
+
+`STR Rn, mem`     -   Store Rn into mem
+
+
+`INP Rn`          -   Store input in Rn
+
+`OUT Rn`          -   Output Rn
+
+`CPR Rn, Rm`      -   Copy Rm into Rn
+
+`CPV Rn, val`     -   Copy value into Rn
+
+
+`ADD Rn, Rm`      -   Add Rn to Rm and store in Rn
+
+`SUB Rn, Rm`      -   Sub Rm from Rn and store in Rn
+
+`LSL Rn, Rm`      -   Left shift Rn by value in Rm and store in Rn
+
+`LSR Rn, Rm`      -   Right shift Rn by value in Rm and store in Rn
+
+
+`AND Rn, Rm`      -   And Rn and Rm and store in Rn
+
+`ORR Rn, Rm`      -   Or Rn and Rm and store in Rn
+
+`XOR Rn, Rm`      -   Xor Rn and Rm and store in Rn
+
+`NOT Rn`          -   Not Rn and store in Rn
+
+
+`BRA mem`         -   Branch (jump) to location mem (note, this is the same as CPV S0, label/mem)
+
+
+`BRZ Rn mem`      -   Branch to location mem, only if Rn is zero
+
+`BRP Rn mem`      -   Branch to location mem, only if Rn is zero or positive
+
+
+
+`mem` can be a label or an actual memory address, although labels are recommended over memory addresses.
 Labels can be any collection of characters, numbers or underscores, but must not start with a number.
 Any line can have a label at the start, and this label then represents the location of that instruction in memory.
 
-General purpose registers are accessed using R0...R15
-System registers are accessed using S0...S15 - mess with them at your own peril!
+General purpose registers are accessed using `R0...R15`
+System registers are accessed using `S0...S15` - mess with them at your own peril!
