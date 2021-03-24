@@ -86,7 +86,6 @@ def write_bin(name, code):
     return bin_name
 
 def resolve_labels(code):
-    # Only LDR and STR use labels at end of line
     # Initialise memory
     resolved_code = [['HLT']] * (2**16)
 
@@ -120,12 +119,12 @@ def resolve_labels(code):
             labels[line[0]] = index
             del line[0]
 
+        if len(line) == 0:
+            raise LMCSytaxError('Lines cannot consist of only a label.')
+
         if line[0] not in COMMANDS.keys():
             raise LMCSytaxError('Command must follow an optional label or line number.')
 
-
-        if len(line) == 0:
-            raise LMCSytaxError('Lines cannot consist of only a label.')
 
         resolved_code[index] = line
 

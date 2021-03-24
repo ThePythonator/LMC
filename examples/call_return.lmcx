@@ -1,0 +1,15 @@
+// Fibonacci, with a subroutine - outputs the first 2n numbers in the Fibonacci sequence
+        INP R0
+        CPV R1, 1
+        CPR R2, R1
+        CPR R3, R1
+start   CALL func
+        SUB R0, R1
+        BRP R0 start
+        HLT
+
+func    OUT R2
+        OUT R3
+        ADD R2, R3
+        ADD R3, R2
+        RTRN

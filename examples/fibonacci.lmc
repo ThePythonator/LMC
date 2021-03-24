@@ -1,4 +1,4 @@
-// Fibonacci
+// Fibonacci - outputs the first 2n numbers in the Fibonacci sequence
         INP R0
         CPV R1, 1
         CPR R2, R1
