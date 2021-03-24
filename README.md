@@ -10,4 +10,4 @@ Memory consists of 2^16 slots of 32 bits, and LMC++ Extended implements a stack 
 # Usage
 To create a program, you can create either a .lmc or .lmcx file (depending on whether you are using standard LMC++, or LMC++ Extended). You then need to use the corresponding python file to assemble it into binary (e.g. `LMC++_translator.py program.lmc`, which produces `program.bin`).
 
-To run/emulate a .bin file, it must first be renamed to `program.bin`, and then you need to execute `LMC++.exe`.
+To run/emulate a .bin file, it must first be renamed to `program.bin`, and then you need to execute `LMC++.exe`. This executable closes upon completion, so if you want to see the output of a program, you'll need to run it from the command line, or add a dummy input command at the end of the program.
