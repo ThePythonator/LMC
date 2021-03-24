@@ -8,9 +8,9 @@ System registers are used primarily for holding values such as the instruction a
 Memory consists of 2^16 slots of 32 bits, and LMC++ Extended implements a stack which starts at the last slot in memory, and grows towards the heap at the start.
 
 # Usage
-To create a program, you can create either a .lmc or .lmcx file (depending on whether you are using standard LMC++, or LMC++ Extended). You then need to use the corresponding python file to assemble it into binary (e.g. `LMC++_tr.py program.lmc`, which produces `program.bin`).
+To create a program, you can create either a `.lmc` or `.lmcx` file (depending on whether you are using standard LMC++, or LMC++ Extended). You then need to use the corresponding python file to assemble it into binary (e.g. `LMC++_tr.py program.lmc`, which produces `program.bin`).
 
-To run/emulate a .bin file, it must first be renamed to `program.bin`, and then you need to execute `LMC++.exe`. This executable closes upon completion, so if you want to see the output of a program, you'll need to run it from the command line, or add a dummy input command at the end of the program.
+To run/emulate a `.bin` file, it must first be renamed to `program.bin`, and then you need to execute `LMC++.exe`. This executable closes upon completion, so if you want to see the output of a program, you'll need to run it from the command line, or add a dummy input command at the end of the program.
 
 To get started, take a look in the examples folder.
 
@@ -19,44 +19,48 @@ To get started, take a look in the examples folder.
 `HLT`             -   Halt
 
 
-`LDR Rn, mem`     -   Load mem into Rn
+`LDR Rn, mem`     -   Load mem into `Rn`
 
-`STR Rn, mem`     -   Store Rn into mem
-
-
-`INP Rn`          -   Store input in Rn
-
-`OUT Rn`          -   Output Rn
-
-`CPR Rn, Rm`      -   Copy Rm into Rn
-
-`CPV Rn, val`     -   Copy value into Rn
+`STR Rn, mem`     -   Store `Rn` into `mem`
 
 
-`ADD Rn, Rm`      -   Add Rn to Rm and store in Rn
+`INP Rn`          -   Store input in `Rn`
 
-`SUB Rn, Rm`      -   Sub Rm from Rn and store in Rn
+`OUT Rn`          -   Output `Rn`
 
-`LSL Rn, Rm`      -   Left shift Rn by value in Rm and store in Rn
+`CPR Rn, Rm`      -   Copy `Rm` into `Rn`
 
-`LSR Rn, Rm`      -   Right shift Rn by value in Rm and store in Rn
-
-
-`AND Rn, Rm`      -   And Rn and Rm and store in Rn
-
-`ORR Rn, Rm`      -   Or Rn and Rm and store in Rn
-
-`XOR Rn, Rm`      -   Xor Rn and Rm and store in Rn
-
-`NOT Rn`          -   Not Rn and store in Rn
+`CPV Rn, val`     -   Copy `val` into `Rn`
 
 
-`BRA mem`         -   Branch (jump) to location mem (note, this is the same as CPV S0, label/mem)
+`ADD Rn, Rm`      -   Add `Rn` to `Rm` and store in `Rn`
+
+`SUB Rn, Rm`      -   Sub `Rm` from `Rn` and store in `Rn`
+
+`LSL Rn, Rm`      -   Left shift `Rn` by value in `Rm` and store in `Rn`
+
+`LSR Rn, Rm`      -   Right shift `Rn` by value in `Rm` and store in `Rn`
 
 
-`BRZ Rn mem`      -   Branch to location mem, only if Rn is zero
+`AND Rn, Rm`      -   Bitwise and `Rn` and `Rm` and store in `Rn`
 
-`BRP Rn mem`      -   Branch to location mem, only if Rn is zero or positive
+`ORR Rn, Rm`      -   Bitwise or `Rn` and `Rm` and store in `Rn`
+
+`XOR Rn, Rm`      -   Bitwise xor `Rn` and `Rm` and store in `Rn`
+
+`NOT Rn`          -   Bitwise not `Rn` and store in `Rn`
+
+
+`BRA mem`         -   Branch (jump) to location `mem` (note, this is the same as `CPV S0, label/mem`)
+
+
+`BRZ Rn mem`      -   Branch to location `mem`, only if `Rn` is zero
+
+`BRP Rn mem`      -   Branch to location `mem`, only if `Rn` is zero or positive
+
+
+`LDP Rn, Rm`      -   Load the value at location `Rm` into `Rn`
+`STP Rn, Rm`      -   Store the value `Rn` at location `Rm`
 
 
 
