@@ -60,8 +60,7 @@ To get started, take a look in the examples folder.
 
 
 `LDP Rn, Rm`      -   Load the value at location `Rm` into `Rn`
-`STP Rn, Rm`      -   Store the value `Rn` at location `Rm`
-
+`STP Rn, Rm`      -   Store the value `Rn` at location `Rm`  
 
 
 `mem` can be a label or an actual memory address, although labels are recommended over memory addresses.
