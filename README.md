@@ -60,7 +60,8 @@ To get started, take a look in the examples folder.
 
 
 `LDP Rn, Rm`      -   Load the value at location `Rm` into `Rn`
-`STP Rn, Rm`      -   Store the value `Rn` at location `Rm`  
+
+`STP Rn, Rm`      -   Store the value `Rn` at location `Rm`
 
 
 `mem` can be a label or an actual memory address, although labels are recommended over memory addresses.
@@ -69,3 +70,7 @@ Any line can have a label at the start, and this label then represents the locat
 
 General purpose registers are accessed using `R0...R15`
 System registers are accessed using `S0...S15` - mess with them at your own peril!
+
+# LMC++ Extended
+
+There are extra commands available for LMC++ Extended (which I need to write documentation for!)
