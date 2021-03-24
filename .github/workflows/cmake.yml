@@ -40,7 +40,7 @@ jobs:
       
     - uses: actions/upload-artifact@v2
       with:
-        path: build/*.zip
+        path: ${{github.workspace}}/build/*.zip
         name: artifact.zip
 
     - name: Test
