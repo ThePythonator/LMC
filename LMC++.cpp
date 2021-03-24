@@ -222,5 +222,7 @@ int main() {
         std::cout << "[ERR] Unable to load " << filename << "\n";
     }
 
+    //std::cout << "\n[INP] Press ENTER to exit.\n";
+
     return 0;
 }
