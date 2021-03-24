@@ -1,6 +1,6 @@
-import argparse
+import argparse, struct
 
-ALLOWED_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789,'.upper()
+ALLOWED_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789,_'.upper()
 
 COMMANDS = {
     'HLT': 0,
@@ -11,7 +11,7 @@ COMMANDS = {
     'INP': 4,
     'OUT': 5,
     'CPR': 6,
-    'CRV': 7,
+    'CPV': 7,
     
     'ADD': 8,
     'SUB': 9,
@@ -79,11 +79,11 @@ def read_lmc(lines):
     return code
 
 def write_bin(name, code):
-    lmcName = '{name}.bin'.format(name=name)
-    with open(lmcName, 'wb+') as f:
+    bin_name = '{name}.bin'.format(name=name)
+    with open(bin_name, 'wb+') as f:
         f.write(bytes(code))
 
-    return lmcName
+    return bin_name
 
 def resolve_labels(code):
     # Only LDR and STR use labels at end of line
@@ -198,7 +198,7 @@ def convert_lmc(code):
             if len(line) != 2 or len(line[1].split(',')) != 2:
                 raise LMCSytaxError(f'Usage is {command} Rn, mem/label')
 
-            sub = line.split(',')
+            sub = line[1].split(',')
                 
             try:
                 r_n = int(sub[0][1:])
@@ -241,7 +241,7 @@ def convert_lmc(code):
 
 
             try:
-                val = int(line[1])
+                val = int(line[2])
 
             except ValueError:
                 raise LMCSytaxError(f'Usage is {command} Rn mem/label')
@@ -292,7 +292,7 @@ def convert_lmc(code):
 
             bin_line += val
 
-        bin_code += bin_line.to_bytes(4, 'big')
+        bin_code += struct.pack('<I', bin_line)
 
     return bytearray(bin_code)
 
@@ -310,7 +310,7 @@ def run(filename):
     name = ''.join(filename.split('.')[:-1])
     code = load_lmc(name)
     resolved_code = resolve_labels(code)
-    # print(resolved_code[:25])
+    # print(resolved_code[:10])
     bin_code = convert_lmc(resolved_code)
     # print(bin_code[:40])
     bin_name = write_bin(name, bin_code)

@@ -1,7 +1,6 @@
 #include "LMC++.hpp"
 
 const uint64_t MEMORY_SIZE = 65536; // slots
-const uint8_t SLOT_SIZE = 4; // bytes
 const uint8_t REG_COUNT = 16;
 
 uint32_t memory[MEMORY_SIZE] = { 0 };
@@ -35,9 +34,9 @@ enum InstructionEnum {
 };
 
 struct InstructionStruct {
-    uint8_t instruction;
-    uint8_t registers;
     uint16_t location;
+    uint8_t registers;
+    uint8_t instruction;
 };
 
 union InstructionUnion
@@ -57,17 +56,56 @@ int main() {
     */
 
     int32_t general_registers[REG_COUNT] = { 0 };
-    int32_t system_registers[REG_COUNT] = { 0 };
+    int32_t system_registers[REG_COUNT] = { 0 }; // should be uint?
 
     InstructionUnion current_instruction = { 0 };
 
     uint8_t flg0, flg1, flg2;
     uint8_t instruction;
 
-    // Try opening program from program.bin
-    std::ifstream program("F:\\Repositories\\LMC\\program.bin", std::ios::in | std::ios::binary | std::ios::ate);
+    std::string filename;
+
+    std::cout << "[INP] Enter the program to run: ";
+
+    std::cin >> filename;
+
+    std::cout << "\n";
+
+    if (filename.length() <= 4 || filename.substr(filename.length() - 4, 4) != ".bin") {
+        filename += ".bin";
+    }
+
+    std::ifstream program;
+
+    // Try opening program from filename
+    program.open(".\\" + filename, std::ios::in | std::ios::binary | std::ios::ate);
+
+    if (!program.is_open()) {
+        std::cout << "[ERR] Unable to load " << filename << ", trying examples/" << filename << "\n";
+        // Try opening program from examples/filename
+        program.open(".\\examples\\" + filename, std::ios::in | std::ios::binary | std::ios::ate);
+    }
+
+#ifdef TESTING
+    // Only used for testing
+    if (!program.is_open()) {
+        std::cout << "[ERR] Unable to load " << filename << ", trying F:/Repositories/LMC/" << filename << "\n";
+        // Try opening program from filename
+        program.open("F:\\Repositories\\LMC\\" + filename, std::ios::in | std::ios::binary | std::ios::ate);
+    }
+
+    if (!program.is_open()) {
+        std::cout << "[ERR] Unable to load " << filename << ", trying full path F:/Repositories/LMC/examples/" << filename << "\n";
+        // Try opening program from examples/filename
+        program.open("F:\\Repositories\\LMC\\examples\\" + filename, std::ios::in | std::ios::binary | std::ios::ate);
+    }
+#endif
 
     if (program.is_open()) {
+        std::cout << "[INF] Loaded " << filename << " successfully.\n";
+
+        std::cout << "\n";
+
         // Load program into memory
         std::streampos size = program.tellg();
         program.seekg(0, std::ios::beg);
@@ -165,7 +203,9 @@ int main() {
                 std::cout << "[ERR] Encounted unrecognised instruction " << std::bitset<5>(instruction) << "\n";
             }
 
-            //std::cout << +instruction;
+            //std::cout << std::bitset<5>(instruction) << "\n";
+            //std::cout << std::bitset<32>(current_instruction.instruction_int) << "\n";
+            //std::cout << std::bitset<16>(current_instruction.instruction_struct.location) << "\n";
 
             // Fetch next instruction
             current_instruction.instruction_int = memory[system_registers[0] & 0b1111111111111111];
@@ -179,7 +219,7 @@ int main() {
         }
     }
     else {
-        std::cout << "[ERR] Unable to load program.bin\n";
+        std::cout << "[ERR] Unable to load " << filename << "\n";
     }
 
     return 0;
