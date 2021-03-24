@@ -35,6 +35,6 @@
 .vscode/
 out/
 
-*.bin
-*.lmc
-*.lmcx
+#*.bin
+#*.lmc
+#*.lmcx

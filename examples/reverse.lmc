@@ -1,0 +1,24 @@
+        CPV R1, 1
+        CPV R2, array
+        LDR R0, count
+inp_srt INP R3
+        STP R3, R2
+        ADD R2, R1
+        SUB R0, R1
+        BRP R0 inp_srt
+inp_end LDR R0, count
+        SUB R2, R1
+out_srt LDP R3, R2
+        OUT R3
+        SUB R2, R1
+        SUB R0, R1
+        BRP R0 out_srt
+out_end HLT
+        
+        // Amount to input, program actually inputs/outputs one more than this, because it goes from count to 0 inclusive
+count   DAT 4
+
+        // Start of array
+array   DAT 0
+
+        // Multiple elements in an array can be declared by adding 'DAT x' commands after the initial value, without any labels

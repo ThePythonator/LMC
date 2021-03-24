@@ -1,0 +1,6 @@
+        INP R0
+        INP R1
+start   SUB R0, R1
+        BRP R0 start
+        ADD R0, R1
+        OUT R0

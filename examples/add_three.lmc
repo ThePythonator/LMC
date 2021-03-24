@@ -1,0 +1,8 @@
+// Add three numbers together
+        INP R0
+        INP R1
+        INP R2
+        ADD R0, R1
+        ADD R0, R2
+        OUT R0
+        HLT

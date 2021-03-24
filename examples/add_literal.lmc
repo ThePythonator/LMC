@@ -1,0 +1,4 @@
+        CPV R0, 8
+        INP R1
+        ADD R0, R1
+        OUT R0
